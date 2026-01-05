@@ -1,0 +1,17 @@
+{
+  "name": "smart-feedback-system-backend",
+  "version": "1.0.0",
+  "description": "Smart Feedback System Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0",
+    "sentiment": "^5.0.2"
+  }
+}
