@@ -19,13 +19,19 @@ app.get("/", (req, res) => {
 });
 
 /* ---------- MongoDB ---------- */
+if (!process.env.MONGO_URI) {
+  console.error("MONGO_URI is not defined");
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/feedbackDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((err) => console.error(err));
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Atlas connected"))
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err.message);
+    process.exit(1);
+  });
+
 
 /* ---------- Start Server ---------- */
 const PORT = process.env.PORT || 5000;
