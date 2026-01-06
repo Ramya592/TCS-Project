@@ -1,4 +1,4 @@
-fetch('http://localhost:5000/api/feedback/summary')
+fetch('https://smart-feedback-backend-ysg0.onrender.com/api/feedback')
     .then(res => res.json())
     .then(data => {
 

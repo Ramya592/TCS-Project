@@ -1,27 +1,27 @@
-document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+document.querySelector("button").addEventListener("click", async () => {
+  const feedbackText = document.querySelector("textarea").value;
 
-    const message = document.getElementById('message').value;
-    const resultDiv = document.getElementById('result');
+  try {
+    const response = await fetch(
+      "https://smart-feedback-backend-ysg0.onrender.com/api/feedback",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ feedback: feedbackText }),
+      }
+    );
 
-    try {
-        const response = await fetch('http://localhost:5000/api/feedback', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ message })
-        });
+    const data = await response.json();
 
-        const data = await response.json();
-
-        if (data.success) {
-            resultDiv.innerHTML = `Sentiment: ${data.sentiment}`;
-        } else {
-            resultDiv.innerHTML = 'Error submitting feedback';
-        }
-
-    } catch (error) {
-        resultDiv.innerHTML = 'Server not reachable';
+    if (response.ok) {
+      alert("Feedback submitted successfully");
+    } else {
+      alert(data.message || "Submission failed");
     }
+  } catch (error) {
+    console.error(error);
+    alert("Error submitting feedback");
+  }
 });
